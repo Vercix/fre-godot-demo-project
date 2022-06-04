@@ -1,0 +1,11 @@
+
+{
+   "bundles": [
+       "src/fre-godot/index.ts",
+       "src/fre-godot/jsx-runtime.ts"
+   ],
+   "compile_only": [
+       "src/**/*.tsx",
+       "src/**/*.jsx"
+   ]
+}

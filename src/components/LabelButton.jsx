@@ -1,4 +1,3 @@
-import Spark from "../GodotRenderer";
 
 
 import CLOSEICON from 'res://cross.png';

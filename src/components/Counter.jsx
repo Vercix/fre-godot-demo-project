@@ -1,4 +1,4 @@
-import Spark from '../GodotRenderer'
+
 
 export default function Counter() {
     const [num, setNum] = Spark.useState(0)

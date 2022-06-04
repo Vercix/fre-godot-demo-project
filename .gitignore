@@ -1,6 +1,7 @@
 .import
 node_modules
 dist
+build
 # Godot-specific ignores
 .import/
 export.cfg
