@@ -1,8 +1,11 @@
 import { render } from "./fre-godot";
+import {jsx} from "./fre-godot/jsx-runtime"
+
 import ToDoList from "./components/ToDoList"
+import TestComp from "./components/TestComp"
 
 export default class GodotReact extends godot.Control {
-
+	app = jsx(TestComp, {});
 	constructor() {
 		super();
 	}
@@ -11,7 +14,7 @@ export default class GodotReact extends godot.Control {
 	_ready() {
 		console.log('_____Ready______');
 
-		render(ToDoList, this)
+		render(this.app, this)
 		console.log("~~~~~~~~~~~~~~~~~~~~~~~")
 		//Spark.workLoop()
 	}
