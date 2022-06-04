@@ -1,6 +1,6 @@
 .import
 node_modules
-
+fre-godot
 dist
 build
 # Godot-specific ignores
