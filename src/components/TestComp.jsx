@@ -1,34 +1,82 @@
 
 // @ts-nocheck
-import { useState, useEffect } from "../fre-godot";
+import { useState, useEffect, useRef } from "../fre-godot";
+import LabelButton from "./LabelButton";
+import CLOSEICON from "res://cross.png";
+import SECONDSCENE from "res://second.tscn";
 
-export default function TestComp() {
-   const [num, setNum] = useState(0);
-   const arr = [1, 2, 3, 4, 5]
-   const test = false
-
-   function handleClick(x) {
-      console.log('clicking button')
-      setNum(num + x)
-   }
+function MenuButton({ options = [], text = 'menu', }) {
+   const ref = useRef(null)
 
    useEffect(() => {
-      console.log('yeehaa be a cowboy')
-   } 
-   ,[])
+      const menu = ref.current;
+      options.forEach((el) => {
+         if (typeof el === 'object') {
+            menu.get_popup().add_item(el.name)
+         } else {
+            menu.get_popup().add_item(el)
+         }
+      })
+
+      menu.get_popup().connect('index_pressed', (i) => {
+         options?.[i]?.onPressed ? options[i].onPressed() : null
+      })
+   }
+      , [])
+
+
 
    return (
-      <control>
-         {test && <label rect_position={new godot.Vector2(25, 150)} text={`I SHOULD NOT SHOW`}/>}
-         {!test && <label rect_position={new godot.Vector2(25, 150)} text={`I SHOULD SHOW`}/>}
-         {
-            arr.map((el) => ( 
-               <label rect_position={new godot.Vector2(10, num * 5 + el * 15)} text={`${el}`}/>
-            ))
-         }
-         <button rect_position={new godot.Vector2(25, 25)} onPressed={() => handleClick(1)} text={`+ ${num} +`} />
-         <button rect_position={new godot.Vector2(25, 50)} onPressed={() => handleClick(-1)} text={`- ${num} -`} />
-      </control>
+      <menubutton switch_on_hover={true} ref={ref} text={text} />
+   )
+
+}
+
+export default function TestComp() {
+   const rootRef = useRef(null)
+
+   function handleClick() {
+      rootRef.current.get_tree().change_scene_to(SECONDSCENE)
+   }
+
+   return (
+      <panelcontainer rect_min_size={new godot.Vector2(200, 200)}>
+         <panel ref={rootRef}>
+            <vbox>
+               <panelcontainer>
+               </panelcontainer>
+               <colorpicker></colorpicker>
+               <hbox>
+                  <MenuButton
+                     text={'Scene Selection'}
+                     options={[
+                        {
+                           name: "Change Scene",
+                           onPressed: () => handleClick()
+                        },
+                     ]}
+                  />
+                  <MenuButton
+                     text={'Test'}
+                     options={[
+                        {
+                           name: "Test",
+                           onPressed: () => handleClick()
+                        },
+                        {
+                           name: "Test",
+                           onPressed: () => handleClick()
+                        },
+                        {
+                           name: "Test",
+                           onPressed: () => handleClick()
+                        },
+                     ]}
+                  />
+               </hbox>
+            </vbox>
+         </panel>
+      </panelcontainer>
    )
 }
 

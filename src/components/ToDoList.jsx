@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState } from "../fre-godot";
+import { useState, useEffect } from "../fre-godot";
 
 import LabelButton from "./LabelButton";
 
@@ -20,9 +20,15 @@ export default function ToDoList() {
       console.log('to do list entered the scene')
    }
 
+   useEffect(() => {
+      console.log('LABELS WERE CHANGED')
+
+
+   }, [labels])
+
    function handleClick() {
       console.log('clicking button')
-      setLabels([...labels, text])
+      setLabels([...labels, makeid(5)])
    }
 
    function handleShowClick() {
@@ -35,6 +41,8 @@ export default function ToDoList() {
    }
 
    function handleTextChange(text) {
+      console.log('sdasd')
+      console.log(text)
       setText(text)
    }
 
@@ -51,30 +59,51 @@ export default function ToDoList() {
       setLabels(labels.slice(0, index).concat(labels.slice(index + 1)))
    }
 
+   function makeid(length) {
+      var result = '';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+         result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+      }
+      return result;
+   }
+
    return (
-      <vbox anchor={15} onReady={onReady}>
-         <lineedit
-            placeholder_text={'Type....'}
-            text={text}
-            onText_changed={(e) => { handleTextChange(e) }}
-         />
+      <panel anchor={15} rect_min_size={new godot.Vector2(200, 200)}>
+         <vbox anchor={15}>
+
+            <lineedit
+               placeholder_text={'Type....'}
+               text={text}
+               onText_changed={(e) => { handleTextChange(e) }}
+               rect_min_size={new godot.Vector2(0, 50)}
+            />
+            <label text={`${text}`} />
+
+            <hseperator />
+
+            {labels.map((el, i) => (
+               //<label key={el} text={`${i}: ${el}-${i}`} />
+               <LabelButton key={el} text={`${i}: ${el}-${i}`} onRemove={() => { onRemoveElement(i) }} />
+            ))}
+            {labels.length > 2 && <label text={'SHOW LABEL SIZE'} />}
+            <button name={'add button'} text={'Add To Do'} onPressed={handleClick} />
+
+            <hseperator />
+
+            <label text={`${num}`} />
+            <progressbar value={num} />
+            <hslider onValue_changed={handleSliderChange} />
 
 
-         {labels.map((el, i) => (
-            <LabelButton key={i} text={`${i}: ${text}-${i}`} onRemove={() => { onRemoveElement(i) }} />
-         ))}
+            <hseperator />
 
-
-
-         <label text={text} />
-         {/* {labels.length > 2 && <label text={'SHOW LABEL SIZE'} />} */}
-         <button name={'add button'} text={'Add To Do'} onPressed={handleClick} />
-
-
-
-         {show && <label text={'SHOW LABEL'} />}
-         <button name={'Show Button'} text={'Toggle'} onPressed={handleShowClick} />
-      </vbox>
+            {show && <label text={'SHOW LABEL'} />}
+            <button name={'Show Button'} text={'Toggle'} onPressed={handleShowClick} />
+         </vbox>
+      </panel>
    )
 }
 

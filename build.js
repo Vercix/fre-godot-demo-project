@@ -13,7 +13,7 @@ const jsxPluginReact17 = {
 		console.log('HEREHERE')
 		const babel = require('@babel/core')
 		const plugin = require('@babel/plugin-transform-react-jsx')
-			.default({}, { runtime: 'automatic', importSource: "../fre-godot", useSpread: true })
+			.default({}, { runtime: 'automatic', importSource: "../fre-godot" })
 
 		build.onLoad({ filter: /\.jsx$/ }, async (args) => {
 			const jsx = await fs.promises.readFile(args.path, 'utf8')
