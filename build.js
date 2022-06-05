@@ -10,25 +10,26 @@ const jsxPluginReact17 = {
 	name: 'jsx-react-17',
 	setup(build) {
 
-		console.log('HEREHERE')
 		const babel = require('@babel/core')
 		const plugin = require('@babel/plugin-transform-react-jsx')
-			.default({}, { runtime: 'automatic', importSource: "../fre-godot" })
-
+		.default({}, { runtime: 'automatic', importSource: "../fre-godot" })
+		
 		build.onLoad({ filter: /\.jsx$/ }, async (args) => {
+			const start = Date.now();
 			const jsx = await fs.promises.readFile(args.path, 'utf8')
 			const result = babel.transformSync(jsx, { plugins: [plugin] })
+			console.log(`[${Date.now() - start}ms]`, colors.green(`Build ${build.initialOptions.entryPoints} ==> ${build.initialOptions.outfile}`));
 			return { contents: result.code }
 		})
 	},
 }
-
 
 const options = {
 	sourceRoot: 'src',
 	outRoot: 'build',
 	tsconfig: 'tsconfig.json',
 }
+
 const scripts = require('./scripts.json');
 
 function normalize_path(path) {
@@ -81,7 +82,6 @@ function watch() {
 		}
 	});
 }
-
 
 function get_build_target(input) {
 	const matches = input.match(/(\.d)?(\.[t|j]sx?)/);
