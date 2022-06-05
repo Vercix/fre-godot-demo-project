@@ -45,7 +45,6 @@ export default function TestComp() {
             <vbox>
                <panelcontainer>
                </panelcontainer>
-               <colorpicker></colorpicker>
                <hbox>
                   <MenuButton
                      text={'Scene Selection'}

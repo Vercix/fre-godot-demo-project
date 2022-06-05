@@ -26,7 +26,7 @@ const jsxPluginReact17 = {
 
 const options = {
 	sourceRoot: 'src',
-	outRoot: 'build',
+	outRoot: 'project/build',
 	tsconfig: 'tsconfig.json',
 }
 
@@ -73,7 +73,7 @@ function watch() {
 				update_entries();
 				output = get_build_target(input);
 				if (!output && last) {
-					console.log('移除', last);
+					console.log('remove', last);
 				}
 			} break;
 		}
