@@ -7,4 +7,4 @@ export {
    useCallback,
    useRef,
    useLayout
-} from '../../fre-godot'
+} from 'fre-godot'

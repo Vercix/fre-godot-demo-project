@@ -1,1 +1,1 @@
-export {  jsx, jsxs, Fragment } from "../../fre-godot/jsx-runtime"
+export {  jsx, jsxs, Fragment } from "fre-godot/jsx-runtime"
