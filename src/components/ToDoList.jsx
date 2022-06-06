@@ -4,10 +4,6 @@ import LineEdit from './LineEdit'
 
 import LabelButton from "./LabelButton";
 
-function Text({ text }) {
-   return <label autowrap={true} text={text} />
-}
-
 export default function ToDoList() {
    const margin = 5;
    // const [labels, setLabels] = Spark.useState([]);
@@ -75,9 +71,6 @@ export default function ToDoList() {
       <panel anchor={15} rect_min_size={new godot.Vector2(200, 200)}>
          <vbox
             anchor={15}
-            style={{
-               rect_rotation: 20,
-            }}
          >
 
             <LineEdit
