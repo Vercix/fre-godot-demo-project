@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect } from "../fre-godot";
+import LineEdit from './LineEdit'
 
 import LabelButton from "./LabelButton";
 
@@ -72,36 +73,50 @@ export default function ToDoList() {
 
    return (
       <panel anchor={15} rect_min_size={new godot.Vector2(200, 200)}>
-         <vbox anchor={15}>
+         <vbox
+            anchor={15}
+            style={{
+               rect_rotation: 20,
+            }}
+         >
 
-            <lineedit
+            <LineEdit
                placeholder_text={'Type....'}
                text={text}
-               onText_changed={(e) => { handleTextChange(e) }}
-               rect_min_size={new godot.Vector2(0, 50)}
+               on_text_changed={(e) => { handleTextChange(e) }}
             />
             <label text={`${text}`} />
 
-            <hseperator />
+            <>
+               <hseperator />
+            </>
 
             {labels.map((el, i) => (
-               //<label key={el} text={`${i}: ${el}-${i}`} />
-               <LabelButton key={el} text={`${i}: ${el}-${i}`} onRemove={() => { onRemoveElement(i) }} />
+               <control
+                  style={{
+                     rect_min_size: new godot.Vector2(0, 25),
+                     mouse_default_cursor_shape: 2,
+                     rect_rotation: 20,
+                  }}
+                  key={el}
+               >
+                  <LabelButton text={`${i}: ${el}-${i}`} on_remove={() => { onRemoveElement(i) }} />
+               </control>
             ))}
             {labels.length > 2 && <label text={'SHOW LABEL SIZE'} />}
-            <button name={'add button'} text={'Add To Do'} onPressed={handleClick} />
+            <button name={'add button'} text={'Add To Do'} on_pressed={handleClick} />
 
             <hseperator />
 
             <label text={`${num}`} />
             <progressbar value={num} />
-            <hslider onValue_changed={handleSliderChange} />
+            <hslider on_value_changed={handleSliderChange} />
 
 
             <hseperator />
 
             {show && <label text={'SHOW LABEL'} />}
-            <button name={'Show Button'} text={'Toggle'} onPressed={handleShowClick} />
+            <button name={'Show Button'} text={'Toggle'} on_pressed={handleShowClick} />
          </vbox>
       </panel>
    )
