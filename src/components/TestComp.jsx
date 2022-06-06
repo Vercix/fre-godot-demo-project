@@ -1,6 +1,7 @@
 
 // @ts-nocheck
 import { useState, useRef, useEffect } from "../fre-godot";
+import LineEdit from "./LineEdit";
 
 function Test({ on_load_posts }) {
    const [text, setText] = useState(1);
@@ -130,43 +131,51 @@ export default function TestComp() {
 
    function receivedPosts(newPosts) {
       console.log('---- received posts----')
-       console.log(newPosts.id)
-       console.log([...posts, newPosts])
-       console.log([...posts, newPosts])
-       setPosts(newPosts)
-       console.log(setHasReceivedPosts)
-       setHasReceivedPosts(true)
+      console.log(newPosts.id)
+      console.log([...posts, newPosts])
+      console.log([...posts, newPosts])
+      setPosts(newPosts)
+      console.log(setHasReceivedPosts)
+      setHasReceivedPosts(true)
    }
 
    useEffect(() => {
       console.log('posts')
       console.log(posts)
-   },[posts])
+   }, [posts])
 
    useEffect(() => {
       console.log('hasReceivedPosts')
       console.log(hasReceivedPosts)
-   },[hasReceivedPosts])
-   
+   }, [hasReceivedPosts])
+
    return (
-      <panelcontainer anchor={15} rect_min_size={new godot.Vector2(200, 200)}>
-         <panel anchor={15} >
-               
-            <vbox >
+      <panel anchor={15} >
+         <vbox anchor={15} size={{ height: 3, width: 3 }}>
+            <LineEdit />
+            <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
+               <vbox anchor={15} size={{ height: 3, width: 3 }}>
+                  {!hasReceivedPosts &&
+                     <Test on_load_posts={receivedPosts} />
+                  }
+                  {posts.map((post, i) => (
+                     <panelcontainer >
+                        <panel
+                           style={{
+                              rect_min_size: new godot.Vector2(0, 25),
+                              mouse_default_cursor_shape: 2,
+                           }}
+                        >
+                           <label key={post.id} text={post.title} />
+                        </panel>
+                     </panelcontainer>
 
-               
-               {!hasReceivedPosts && 
-               <Test on_load_posts={receivedPosts} />
-               }
-               {posts.map((post, i) => (
-            
-                  <label key={post.id} text={post.title} />
-                  
-               ))}
+                  ))}
 
-            </vbox>
-         </panel>
-      </panelcontainer>
+               </vbox>
+            </scrollcontainer>
+         </vbox>
+      </panel>
    )
 }
 
