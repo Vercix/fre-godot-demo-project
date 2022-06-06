@@ -5,16 +5,16 @@ import {jsx} from "./fre-godot/jsx-runtime"
 export default class GodotFreApp extends godot.Control {
 	//app = jsx(TestComp, {})
 	constructor() {
-		super();
-		
+		super();	
 	}
 	
+	_enter_tree() {
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	async _ready() {
 		console.log("_____Ready______");
-
-  
-		var test = await import(`res://build/src/components/${this.app}.jsx`)
+		var test = (await import(`res://build/src/components/${this.app}.jsx`))
 		render(jsx(test.default), this);
 		console.log("~~~~~~~~~~~~~~~~~~~~~~~");
 	}
