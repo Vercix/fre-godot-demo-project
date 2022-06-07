@@ -26,7 +26,7 @@ const jsxPluginReact17 = {
 
 const options = {
 	sourceRoot: 'src',
-	outRoot: 'project/build',
+	outRoot: 'project/dist',
 	tsconfig: 'tsconfig.json',
 }
 
@@ -88,7 +88,9 @@ function get_build_target(input) {
 	if (!matches) return;
 	if (matches[0] === '.d.ts') return;
 	if (scripts.bundles.indexOf(input) == -1 && scripts.compile_only.indexOf(input) == -1) return;
-	const target = path.join(options.outRoot, input).replace('.ts', '.js');
+	const target = path.join(options.outRoot, input.replace(options.sourceRoot, '')).replace('.ts', '.js');
+	console.log(input.replace(options.sourceRoot, ''))
+	console.log(target)
 	return normalize_path(target);
 }
 
