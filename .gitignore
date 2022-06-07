@@ -4,6 +4,7 @@ node_modules
 fre-godot
 dist
 build
+logs
 # Godot-specific ignores
 .import/
 export.cfg
