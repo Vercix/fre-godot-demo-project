@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "../fre-godot";
 
-export default function LineEdit({ text, placeholder_text, on_text_changed }) {
+export default function LineEdit(props) {
+   const { text, placeholder_text = 'Path...', on_text_changed,  ...passThroughProps } = props;
    const ref = useRef(null)
    const cursorRef = useRef(0)
 
@@ -21,6 +22,7 @@ export default function LineEdit({ text, placeholder_text, on_text_changed }) {
          placeholder_text={placeholder_text}
          text={text}
          on_text_changed={onTextChanged}
+         {...passThroughProps}
       />
    )
 }
