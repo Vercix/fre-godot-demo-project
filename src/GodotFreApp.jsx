@@ -10,7 +10,7 @@ export default class GodotFreApp extends godot.Control {
 	
 	async _enter_tree() {
 		console.log("_____Ready______");
-		var test = (await import(`res://build/src/components/${this.app}.jsx`))
+		var test = (await import(`res://dist/components/${this.app}.jsx`))
 		render(jsx(test.default), this);
 		console.log("~~~~~~~~~~~~~~~~~~~~~~~");
 	}
