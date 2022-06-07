@@ -9,14 +9,28 @@ import fetch from '../utils/fetch'
 
 export default function TestComp() {
    const rootRef = useRef(null)
+   const titleBarRef = useRef(null)
+
    const [posts, setPosts] = useState([])
    const [hasReceivedPosts, setHasReceivedPosts] = useState(false)
    const [searchPath, setSearchPath] = useState('/posts')
-
+   
+   const [following, setFollowing] = useState(false)
+   const [draggingStartPosition, setDraggingStartPosition] = useState(new godot.Vector2())
+   
    function receivedPosts(newPosts) {
       console.log('---- received posts----')
       setPosts(newPosts)
       setHasReceivedPosts(true)
+   }
+
+   function onTitleBarGuiInput(event) {
+      if (event instanceof godot.InputEventMouseButton) {
+         if (event.get_button_index() == 1) {
+            setFollowing(!following)
+            setDraggingStartPosition(titleBarRef.current.get_local_mouse_position())
+         }
+      }
    }
 
    function onGuiInput(e) {
@@ -27,6 +41,10 @@ export default function TestComp() {
    function onTextChanged(newText) {
       setSearchPath(newText)
    }
+
+   useEffect(() => {
+      console.log('draggingStartPosition changed')
+   }, [draggingStartPosition])
 
    useEffect(() => {
       console.log('posts changed')
@@ -61,64 +79,93 @@ export default function TestComp() {
 
    useEffect(() => {
       setPosts([])
-      makeRequest()
+      //makeRequest()
       return;
    }
       , [searchPath])
 
+   function test(delta){
+      console.log(
+      'this is a process test'
+      )
+   }
+
    return (
-      <vbox seperation={6} anchor={15}>
-         <panelcontainer
-            style={{
-               rect_min_size: new godot.Vector2(0, 50),
-               mouse_default_cursor_shape: 2,
-            }}
-         >
-            <panel />
-         </panelcontainer >
-         <panelcontainer size={{ height: 3 }}>
-            <panel >
-               <vbox anchor={15} size={{ width: 3 }}>
-                  <hbox size={{ width: 3 }}>
-                     <LineEdit
-                        text={searchPath}
-                        on_text_changed={onTextChanged}
+      <panel anchor={15}>
+
+         <vbox seperation={0} anchor={15}>
+            <panelcontainer
+               style={{
+                  rect_min_size: new godot.Vector2(0, 50),
+                  mouse_default_cursor_shape: 2,
+               }}
+               ref={titleBarRef}
+               on_gui_input={onTitleBarGuiInput}
+               _process={test}
+            >
+               <panel mouse_filter={2}>
+                  <hbox anchor={15} mouse_filter={2}>
+                     <button
                         style={{
-                           rect_min_size: new godot.Vector2(0, 50),
+                           rect_min_size: new godot.Vector2(40, 0),
                            mouse_default_cursor_shape: 2,
                         }}
-                        size={{ width: 3 }}
+                        text={'_'}
                      />
-                     <button size={{ width: 0 }} text={`SEARCH`} />
+                     <button
+                        style={{
+                           rect_min_size: new godot.Vector2(40, 0),
+                           mouse_default_cursor_shape: 2,
+                        }}
+                        text={'X'}
+                     />
                   </hbox>
-                  <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
-                     <vbox anchor={15} size={{ height: 3, width: 3 }}>
+               </panel>
+            </panelcontainer >
+            <panelcontainer size={{ height: 3 }}>
+               <panel >
+                  <vbox anchor={15} size={{ width: 3 }}>
+                     <hbox size={{ width: 3 }}>
+                        <LineEdit
+                           text={searchPath}
+                           on_text_changed={onTextChanged}
+                           style={{
+                              rect_min_size: new godot.Vector2(0, 50),
+                              mouse_default_cursor_shape: 2,
+                           }}
+                           size={{ width: 3 }}
+                        />
+                        <button size={{ width: 0 }} text={`SEARCH`} />
+                     </hbox>
+                     <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
+                        <vbox anchor={15} size={{ height: 3, width: 3 }}>
 
 
-                        {posts.map((el, i) => (
-                           <panelcontainer >
-                              <panel
-                                 style={{
-                                    rect_min_size: new godot.Vector2(0, 50),
-                                    mouse_default_cursor_shape: 2,
-                                 }}
-                              //on_gui_input={onGuiInput}
-                              >
-                                 <vbox anchor={15}>
-                                    <label size={{ height: 3 }} key={el.id} text={el.title || el.name} />
-                                    <button size={{ width: 0 }} text={`Read`} />
-                                 </vbox>
-                              </panel>
-                           </panelcontainer>
+                           {posts.map((el, i) => (
+                              <panelcontainer >
+                                 <panel
+                                    style={{
+                                       rect_min_size: new godot.Vector2(0, 50),
+                                       mouse_default_cursor_shape: 2,
+                                    }}
+                                 //on_gui_input={onGuiInput}
+                                 >
+                                    <vbox anchor={15}>
+                                       <label size={{ height: 3 }} key={el.id} text={el.title || el.name} />
+                                       <button size={{ width: 0 }} text={`Read`} />
+                                    </vbox>
+                                 </panel>
+                              </panelcontainer>
 
-                        ))}
+                           ))}
 
-                     </vbox>
-                  </scrollcontainer>
-               </vbox>
-            </panel>
-         </panelcontainer>
-      </vbox>
+                        </vbox>
+                     </scrollcontainer>
+                  </vbox>
+               </panel>
+            </panelcontainer>
+         </vbox>
+      </panel>
    )
 }
 
