@@ -8,15 +8,15 @@ export default class GodotFreApp extends godot.Control {
 		super();	
 	}
 	
-	_enter_tree() {
-	}
-
-	// Called when the node enters the scene tree for the first time.
-	async _ready() {
+	async _enter_tree() {
 		console.log("_____Ready______");
 		var test = (await import(`res://build/src/components/${this.app}.jsx`))
 		render(jsx(test.default), this);
 		console.log("~~~~~~~~~~~~~~~~~~~~~~~");
+	}
+
+	// Called when the node enters the scene tree for the first time.
+	async _ready() {
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
