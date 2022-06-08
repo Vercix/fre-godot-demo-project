@@ -2,9 +2,10 @@
 
 export default class AppTitleBar extends godot.PanelContainer {
     //app = jsx(TestComp, {})
-    following = false; 
-    dragging_start_position = new godot.Vector2(); 
-    
+    following = false;
+    dragging_start_position = new godot.Vector2();
+    children = [];
+
     constructor() {
         super();
     }
@@ -14,7 +15,7 @@ export default class AppTitleBar extends godot.PanelContainer {
 
     }
 
-    _gui_input(event: godot.InputEvent) {
+    _gui_input(event) {
         if (event instanceof godot.InputEventMouseButton) {
             if (event.get_button_index() == 1) {
                 this.following = !this.following;
@@ -24,7 +25,7 @@ export default class AppTitleBar extends godot.PanelContainer {
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    _process(delta : number): void {
+    _process(delta) {
         if (this.following) {
             // @ts-ignore: can add vectors
             godot.OS.set_window_position(godot.OS.window_position + this.get_global_mouse_position() - this.dragging_start_position)
@@ -33,7 +34,10 @@ export default class AppTitleBar extends godot.PanelContainer {
 
     _render() {
         return (
-            <label />
+            <hbox>
+                <label text="Hello" />
+                {this.children}
+            </hbox>
         )
     }
 
