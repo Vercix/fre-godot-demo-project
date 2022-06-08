@@ -11,13 +11,15 @@ const jsxPluginReact17 = {
 	setup(build) {
 
 		const babel = require('@babel/core')
-		const plugin = require('@babel/plugin-transform-react-jsx')
+		const pluginTransformJsX = require('@babel/plugin-transform-react-jsx')
 		.default({}, { runtime: 'automatic', importSource: "../fre-godot" })
+		// const pluginTypeScript = require('@babel/plugin-transform-typescript')
+		// .default({})
 		
-		build.onLoad({ filter: /\.jsx$/ }, async (args) => {
+		build.onLoad({ filter: /\.[tj]sx$/ }, async (args) => {
 			const start = Date.now();
 			const jsx = await fs.promises.readFile(args.path, 'utf8')
-			const result = babel.transformSync(jsx, { plugins: [plugin] })
+			const result = babel.transformSync(jsx, { plugins: [pluginTransformJsX] })
 			console.log(`[${Date.now() - start}ms]`, colors.green(`Build ${build.initialOptions.entryPoints} ==> ${build.initialOptions.outfile}`));
 			return { contents: result.code }
 		})

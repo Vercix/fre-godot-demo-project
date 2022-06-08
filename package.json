@@ -20,6 +20,7 @@
 	},
 	"types": "godot.d.ts",
 	"dependencies": {
+		"@babel/plugin-transform-typescript": "^7.18.4",
 		"assert": "^2.0.0",
 		"buffer": "^6.0.3",
 		"child_process": "^1.0.2",
