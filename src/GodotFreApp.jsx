@@ -21,7 +21,7 @@ export default class GodotFreApp extends godot.Control {
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	_process(delta) {
-		//Spark.workLoop()
+		
 	}
 	
 	

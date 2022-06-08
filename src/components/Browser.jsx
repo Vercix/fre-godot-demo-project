@@ -6,6 +6,7 @@ import LineEdit from "./LineEdit";
 
 import fetch from '../utils/fetch'
 
+import AppTitleBar from '../classes/AppTitleBar'
 
 export default function TestComp() {
    const rootRef = useRef(null)
@@ -59,8 +60,11 @@ export default function TestComp() {
       console.log(hasReceivedPosts)
    }, [hasReceivedPosts])
 
-   function closeWindow(){
+   function closeWindow() {
       titleBarRef.current.get_tree().quit();
+   }
+   function minimizeWindow() {
+      godot.OS.set_window_minimized(true)
    }
 
    async function makeRequest() {
@@ -80,7 +84,7 @@ export default function TestComp() {
 
    useEffect(() => {
       setPosts([])
-      //makeRequest()
+      makeRequest()
       return;
    }
       , [searchPath])
@@ -89,33 +93,31 @@ export default function TestComp() {
       <panel anchor={15}>
 
          <vbox seperation={0} anchor={15}>
-            <panelcontainer
+            <AppTitleBar
                style={{
                   rect_min_size: new godot.Vector2(0, 50)
                }}
                ref={titleBarRef}
-               on_gui_input={onTitleBarGuiInput}
             >
-               <panel mouse_filter={2}>
-                  <hbox anchor={15} mouse_filter={2}>
-                     <button
-                        style={{
-                           rect_min_size: new godot.Vector2(40, 0),
-                           mouse_default_cursor_shape: 2,
-                        }}
-                        text={'_'}
-                     />
-                     <button
-                        style={{
-                           rect_min_size: new godot.Vector2(40, 0),
-                           mouse_default_cursor_shape: 2,
-                        }}
-                        text={'X'}
-                        on_pressed={closeWindow}
-                     />
-                  </hbox>
-               </panel>
-            </panelcontainer >
+               <hbox alignment={2} anchor={15} mouse_filter={2}>
+                  <button
+                     style={{
+                        rect_min_size: new godot.Vector2(40, 0),
+                        mouse_default_cursor_shape: 2,
+                     }}
+                     text={'_'}
+                     on_pressed={minimizeWindow}
+                  />
+                  <button
+                     style={{
+                        rect_min_size: new godot.Vector2(40, 0),
+                        mouse_default_cursor_shape: 2,
+                     }}
+                     text={'X'}
+                     on_pressed={closeWindow}
+                  />
+               </hbox>
+            </AppTitleBar >
             <panelcontainer size={{ height: 3 }}>
                <panel >
                   <vbox anchor={15} size={{ width: 3 }}>

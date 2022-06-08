@@ -1,18 +1,20 @@
 
-export default class TestClass extends godot.PanelContainer {
+
+export default class AppTitleBar extends godot.PanelContainer {
     //app = jsx(TestComp, {})
+    following = false; 
+    dragging_start_position = new godot.Vector2(); 
+    
     constructor() {
         super();
     }
 
     // Called when the node enters the scene tree for the first time.
     _ready() {
-        console.log('I entered the tree');
-        this.folliwing = false; 
-        this.dragging_start_position = new godot.Vector2(); 
+
     }
 
-    _gui_input(event) {
+    _gui_input(event: godot.InputEvent) {
         if (event instanceof godot.InputEventMouseButton) {
             if (event.get_button_index() == 1) {
                 this.following = !this.following;
@@ -22,13 +24,21 @@ export default class TestClass extends godot.PanelContainer {
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    _process(delta) {
+    _process(delta : number): void {
         if (this.following) {
+            // @ts-ignore: can add vectors
             godot.OS.set_window_position(godot.OS.window_position + this.get_global_mouse_position() - this.dragging_start_position)
         }
+    }
+
+    _render() {
+        return (
+            <label />
+        )
     }
 
 }
 
 //godot
-godot.register_class(TestClass, 'TestClass');
+godot.register_class(AppTitleBar, 'AppTitleBar');
+
