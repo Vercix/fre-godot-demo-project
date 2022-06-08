@@ -84,7 +84,7 @@ export default function TestComp() {
 
    useEffect(() => {
       setPosts([])
-      makeRequest()
+      //makeRequest()
       return;
    }
       , [searchPath])
@@ -99,24 +99,22 @@ export default function TestComp() {
                }}
                ref={titleBarRef}
             >
-               <hbox alignment={2} anchor={15} mouse_filter={2}>
-                  <button
-                     style={{
-                        rect_min_size: new godot.Vector2(40, 0),
-                        mouse_default_cursor_shape: 2,
-                     }}
-                     text={'_'}
-                     on_pressed={minimizeWindow}
-                  />
-                  <button
-                     style={{
-                        rect_min_size: new godot.Vector2(40, 0),
-                        mouse_default_cursor_shape: 2,
-                     }}
-                     text={'X'}
-                     on_pressed={closeWindow}
-                  />
-               </hbox>
+               <button
+                  style={{
+                     rect_min_size: new godot.Vector2(40, 0),
+                     mouse_default_cursor_shape: 2,
+                  }}
+                  text={'_'}
+                  on_pressed={minimizeWindow}
+               />
+               <button
+                  style={{
+                     rect_min_size: new godot.Vector2(40, 0),
+                     mouse_default_cursor_shape: 2,
+                  }}
+                  text={'X'}
+                  on_pressed={closeWindow}
+               />
             </AppTitleBar >
             <panelcontainer size={{ height: 3 }}>
                <panel >
