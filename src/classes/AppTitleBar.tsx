@@ -1,5 +1,9 @@
 
 
+function Test() {
+    return <label text="Test Func Comp" ></label>
+}
+
 export default class AppTitleBar extends godot.PanelContainer {
     //app = jsx(TestComp, {})
     following = false;
@@ -34,8 +38,11 @@ export default class AppTitleBar extends godot.PanelContainer {
 
     _render() {
         return (
-            <hbox>
-                <label text="Hello" />
+            <hbox >
+                <hbox size={{ width: 3 }}>
+                    <Test />
+                    <label text={this.title || "NOT FOUND"} />
+                </hbox>
                 {this.children}
             </hbox>
         )

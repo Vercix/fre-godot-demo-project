@@ -4,8 +4,7 @@
 import { useState, useRef, useEffect } from "../fre-godot";
 import LineEdit from "./LineEdit";
 
-import fetch from '../utils/fetch'
-
+import useFetch from '../hooks/useFetch'
 import AppTitleBar from '../classes/AppTitleBar'
 
 export default function TestComp() {
@@ -13,9 +12,10 @@ export default function TestComp() {
    const titleBarRef = useRef(null)
 
    const [posts, setPosts] = useState([])
+   const [show, setShow] = useState(true)
    const [hasReceivedPosts, setHasReceivedPosts] = useState(false)
    const [searchPath, setSearchPath] = useState('/posts')
-
+   const resp = useFetch(searchPath)
    const [following, setFollowing] = useState(false)
    const [draggingStartPosition, setDraggingStartPosition] = useState(new godot.Vector2())
 
@@ -23,18 +23,6 @@ export default function TestComp() {
       console.log('---- received posts----')
       setPosts(newPosts)
       setHasReceivedPosts(true)
-   }
-
-   function onTitleBarGuiInput(event) {
-      if (event instanceof godot.InputEventMouseButton) {
-         if (event.get_button_index() == 1) {
-            setFollowing(!following)
-            setDraggingStartPosition(titleBarRef.current.get_local_mouse_position())
-         }
-      }
-      if (following) {
-         godot.OS.set_window_position(godot.OS.window_position + titleBarRef.current.get_global_mouse_position() - draggingStartPosition)
-      }
    }
 
    function onGuiInput(e) {
@@ -67,27 +55,26 @@ export default function TestComp() {
       godot.OS.set_window_minimized(true)
    }
 
-   async function makeRequest() {
+   
+   useEffect(() => {
+      if (!resp) return;
       try {
-         let response = await fetch({ path: searchPath })
-         response = JSON.parse(response)
-         if (!Array.isArray(response)) {
+         const parsedResponse = JSON.parse(resp)
+         if (!Array.isArray(parsedResponse)) {
             throw new Error('Response is not an array')
          }
-         setPosts(response)
-
+         setPosts(parsedResponse)
+   
       } catch (err) {
          console.log(err)
          setPosts([])
       }
    }
+      , [resp])
 
-   useEffect(() => {
-      setPosts([])
-      //makeRequest()
-      return;
+   function toggleShow() {
+      setShow(!show)
    }
-      , [searchPath])
 
    return (
       <panel anchor={15}>
@@ -98,6 +85,7 @@ export default function TestComp() {
                   rect_min_size: new godot.Vector2(0, 50)
                }}
                ref={titleBarRef}
+               title={searchPath}
             >
                <button
                   style={{
@@ -115,6 +103,15 @@ export default function TestComp() {
                   text={'X'}
                   on_pressed={closeWindow}
                />
+               <button
+                  style={{
+                     rect_min_size: new godot.Vector2(40, 0),
+                     mouse_default_cursor_shape: 2,
+                  }}
+                  text={'SHOW'}
+                  on_pressed={toggleShow}
+               />
+               {show && <label text={'test'} />}
             </AppTitleBar >
             <panelcontainer size={{ height: 3 }}>
                <panel >
