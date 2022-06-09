@@ -1,9 +1,9 @@
 
-// @ts-nocheck
+
 
 import { useState, useRef, useEffect } from "../fre-godot";
 
-import TestClass from "../classes/Test";
+import TestClass from "../classes/AppTitleBar";
 
 export default function TestComp() {
 

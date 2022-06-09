@@ -6,22 +6,55 @@ const colors = require('colors/safe');
 const filesize = require('filesize');
 const { glob } = require('glob');
 
+
+
 const jsxPluginReact17 = {
 	name: 'jsx-react-17',
 	setup(build) {
 
 		const babel = require('@babel/core')
 		const pluginTransformJsX = require('@babel/plugin-transform-react-jsx')
-		.default({}, { runtime: 'automatic', importSource: "../fre-godot" })
+			.default({}, { runtime: 'automatic', importSource: "../fre-godot" })
 		// const pluginTypeScript = require('@babel/plugin-transform-typescript')
 		// .default({})
-		
+
 		build.onLoad({ filter: /\.[tj]sx$/ }, async (args) => {
 			const start = Date.now();
 			const jsx = await fs.promises.readFile(args.path, 'utf8')
 			const result = babel.transformSync(jsx, { plugins: [pluginTransformJsX] })
 			console.log(`[${Date.now() - start}ms]`, colors.green(`Build ${build.initialOptions.entryPoints} ==> ${build.initialOptions.outfile}`));
 			return { contents: result.code }
+		})
+	},
+}
+
+const injectFre = {
+	name: 'inject-fre',
+	setup(build) {
+
+
+		build.onLoad({ filter: /\.[tj]sx$/ }, async (args) => {
+			const start = Date.now();
+			const fileString = await fs.promises.readFile(args.path, 'utf8')
+			// const result = babel.transformSync(jsx, { plugins: [pluginTransformJsX] })
+			console.log(`[${Date.now() - start}ms]`, colors.green(`Build ${build.initialOptions.entryPoints} ==> ${build.initialOptions.outfile}`));
+			
+			function getRelPath(x){
+				if(x < 1 ){
+					return './'
+				}
+				return '../'.repeat(x)
+
+
+			}
+
+			const relPath = getRelPath(build.initialOptions.outfile.split('/').length - 3)  
+			
+			const result = `import { jsx as _jsx } from "${relPath}fre-godot/jsx-runtime" \n` + fileString
+			return { 
+				contents: result,
+				loader : 'tsx'
+			}
 		})
 	},
 }
@@ -111,9 +144,9 @@ async function build_entry(input, outfile) {
 			bundle: entry_is_bundle(input),
 			jsx: 'transform',
 			jsxFactory: '_jsx',
-			inject: ['./src/fre-godot/fre-godot-shim.js']
-
-			//plugins: [jsxPluginReact17],
+			//inject: ['./src/fre-godot/fre-godot-shim.js'],
+			loader: { '.js': 'jsx' },
+			plugins: [injectFre],
 		});
 		console.log(`[${Date.now() - start}ms]`, colors.green(`Build ${input} ==> ${outfile}`), colors.grey(filesize(fs.statSync(outfile).size)));
 	} catch (error) {

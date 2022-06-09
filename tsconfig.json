@@ -10,6 +10,7 @@
 		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "node",
 		"sourceMap": true,
-		"sourceRoot": "."
+		"sourceRoot": ".",
+		"jsx": "preserve",
 	}
 }

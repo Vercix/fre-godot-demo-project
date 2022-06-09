@@ -53,13 +53,13 @@ declare module globalThis {
 	}
 
 	/**
-	 * A worker is an object created using a constructor of `Worker` that runs a named JavaScript file ￢ﾀﾔ this file contains the code that will run in the worker thread;
+	 * A worker is an object created using a constructor of `Worker` that runs a named JavaScript file  this file contains the code that will run in the worker thread;
 	 *
 	 * Workers run in another global context that is different from the current context.
 	 * 
 	 * You can run whatever code you like inside the worker thread. All of the godot API are avaliable inside workers.
 	 * 
-	 * Data is sent between workers and the main thread via a system of messages ￢ﾀﾔ both sides send their messages using the `postMessage()` method, and respond to messages via the `onmessage` event handler (the message is contained within the Message event's data attribute.) The data is copied rather than shared.
+	 * Data is sent between workers and the main thread via a system of messages  both sides send their messages using the `postMessage()` method, and respond to messages via the `onmessage` event handler (the message is contained within the Message event's data attribute.) The data is copied rather than shared.
 	 *
 	 * You can **transfer** value with `Worker.abandonValue` and `Worker.adoptValue`. After a value is abandoned you cannot using it anymore in the context.
 	 *
@@ -627,8 +627,8 @@ declare module godot {
 		const BACK: Readonly<Vector3>;
 	}
 	
-	/** 3ￃﾗ3 matrix datatype.
-	 3ￃﾗ3 matrix used for 3D rotation and scale. Contains 3 vector fields X, Y and Z as its columns, which can be interpreted as the local basis vectors of a transformation. Can also be accessed as array of 3D vectors. These vectors are orthogonal to each other, but are not necessarily normalized (due to scaling). Almost always used as an orthogonal basis for a `Transform`.
+	/** 33 matrix datatype.
+	 33 matrix used for 3D rotation and scale. Contains 3 vector fields X, Y and Z as its columns, which can be interpreted as the local basis vectors of a transformation. Can also be accessed as array of 3D vectors. These vectors are orthogonal to each other, but are not necessarily normalized (due to scaling). Almost always used as an orthogonal basis for a `Transform`.
 
 	 For such use, it is composed of a scaling and a rotation matrix, in that order (M = R.S). */
 	class Basis {
@@ -719,8 +719,8 @@ declare module godot {
 		const FLIP_Z: Readonly<Basis>;
 	}
 	
-	/** 3D transformation (3ￃﾗ4 matrix).
-	 Represents one or many transformations in 3D space such as translation, rotation, or scaling. It consists of a `basis` and an `origin`. It is similar to a 3ￃﾗ4 matrix. */
+	/** 3D transformation (34 matrix).
+	 Represents one or many transformations in 3D space such as translation, rotation, or scaling. It consists of a `basis` and an `origin`. It is similar to a 34 matrix. */
 	class Transform {
 		constructor(from: Transform);
 		constructor(from: Quat);
@@ -792,8 +792,8 @@ declare module godot {
 		const FLIP_Z: Readonly<Transform>;
 	}
 
-	/** 2D transformation (3ￃﾗ2 matrix).
-	 Represents one or many transformations in 2D space such as translation, rotation, or scaling. It consists of two `x` and `y` `Vector2`s and an `origin`. It is similar to a 3ￃﾗ2 matrix. */
+	/** 2D transformation (32 matrix).
+	 Represents one or many transformations in 2D space such as translation, rotation, or scaling. It consists of two `x` and `y` `Vector2`s and an `origin`. It is similar to a 32 matrix. */
 	class Transform2D {
 		constructor();
 		constructor(from: Transform2D);
@@ -801,10 +801,10 @@ declare module godot {
 		constructor(x_axis: Vector2, y_axis: Vector2, origin: Vector2);
 		constructor(rotation: number, position: Vector2);
 
-		/** The X axis of 2ￃﾗ2 basis matrix containing 2 `Vector2`s as its columns: X axis and Y axis. These vectors can be interpreted as the basis vectors of local coordinate system traveling with the object. */
+		/** The X axis of 22 basis matrix containing 2 `Vector2`s as its columns: X axis and Y axis. These vectors can be interpreted as the basis vectors of local coordinate system traveling with the object. */
 		x: Vector2;
 
-		/** The Y axis of 2ￃﾗ2 basis matrix containing 2 `Vector2`s as its columns: X axis and Y axis. These vectors can be interpreted as the basis vectors of local coordinate system traveling with the object. */
+		/** The Y axis of 22 basis matrix containing 2 `Vector2`s as its columns: X axis and Y axis. These vectors can be interpreted as the basis vectors of local coordinate system traveling with the object. */
 		y: Vector2;
 
 		/** The transform's translation offset. */
@@ -1788,7 +1788,7 @@ declare module godot {
 		/** Performs a spherical-linear interpolation with another quaternion. */
 		slerp(b: Quat, t: number) : Quat;
 
-		/** Performs a spherical-linear interpolation with another quaterion without checking if the rotation path is not bigger than 90ￂﾰ. */
+		/** Performs a spherical-linear interpolation with another quaterion without checking if the rotation path is not bigger than 90. */
 		slerpni(b: Quat, t: number) : Quat;
 
 		/** Transforms the vector `v` by this quaternion. */
@@ -3062,6 +3062,9 @@ declare module godot {
 
 	/** Ctrl key mask. */
 	const KEY_MASK_CTRL: KeyModifierMask.KEY_MASK_CTRL;
+
+	/** Command key mask. On macOS, this is equivalent to `KEY_MASK_META`. On other platforms, this is equivalent to `KEY_MASK_CTRL`. This mask should be preferred to `KEY_MASK_META` or `KEY_MASK_CTRL` for system shortcuts as it handles all platforms correctly. */
+	const KEY_MASK_CMD: KeyModifierMask.KEY_MASK_CMD;
 
 	/** Keypad key mask. */
 	const KEY_MASK_KPAD: KeyModifierMask.KEY_MASK_KPAD;
@@ -4679,6 +4682,8 @@ declare module godot {
 		KEY_MASK_META = 134217728,
 		/** Ctrl key mask. */
 		KEY_MASK_CTRL = 268435456,
+		/** Command key mask. On macOS, this is equivalent to `KEY_MASK_META`. On other platforms, this is equivalent to `KEY_MASK_CTRL`. This mask should be preferred to `KEY_MASK_META` or `KEY_MASK_CTRL` for system shortcuts as it handles all platforms correctly. */
+		KEY_MASK_CMD = 445454646565,
 		/** Keypad key mask. */
 		KEY_MASK_KPAD = 536870912,
 		/** Group Switch key mask. */
@@ -47126,7 +47131,7 @@ declare module godot {
 
 	 **Note:** RichTextLabel doesn't support entangled BBCode tags. For example, instead of using `**bold*bold italic**italic*`, use `**bold*bold italic****italic*`.
 
-	 **Note:** `push_*pop functions won't affect BBCode`.
+	 
 
 	 **Note:** Unlike `Label`, RichTextLabel doesn't have a *property* to horizontally align text to the center. Instead, enable `bbcode_enabled` and surround the text in a ``center`` tag as follows: ``center`Example`/center``. There is currently no built-in way to vertically align text either, but this can be emulated by relying on anchors/containers and the `fit_content_height` property.
 
