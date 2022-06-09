@@ -109,7 +109,11 @@ async function build_entry(input, outfile) {
 			tsconfig: options.tsconfig,
 			sourcemap: true,
 			bundle: entry_is_bundle(input),
-			plugins: [jsxPluginReact17],
+			jsx: 'transform',
+			jsxFactory: '_jsx',
+			inject: ['./src/fre-godot/fre-godot-shim.js']
+
+			//plugins: [jsxPluginReact17],
 		});
 		console.log(`[${Date.now() - start}ms]`, colors.green(`Build ${input} ==> ${outfile}`), colors.grey(filesize(fs.statSync(outfile).size)));
 	} catch (error) {

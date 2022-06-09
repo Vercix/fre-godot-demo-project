@@ -9,9 +9,6 @@
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "node",
-		"jsx": "preserve",
-		"jsxFactory": "jsx",
-		"jsxFragmentFactory": "Fragment",
 		"sourceMap": true,
 		"sourceRoot": "."
 	}
