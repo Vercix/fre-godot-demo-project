@@ -15,7 +15,7 @@ export default function TestComp() {
    const [show, setShow] = useState(true)
    const [hasReceivedPosts, setHasReceivedPosts] = useState(false)
    const [searchPath, setSearchPath] = useState('/posts')
-   const resp = useFetch(searchPath)
+   //const resp = useFetch(searchPath)
    const [following, setFollowing] = useState(false)
    const [draggingStartPosition, setDraggingStartPosition] = useState(new godot.Vector2())
 
@@ -55,29 +55,31 @@ export default function TestComp() {
       godot.OS.set_window_minimized(true)
    }
 
-   
-   useEffect(() => {
-      if (!resp) return;
-      try {
-         const parsedResponse = JSON.parse(resp)
-         if (!Array.isArray(parsedResponse)) {
-            throw new Error('Response is not an array')
-         }
-         setPosts(parsedResponse)
-   
-      } catch (err) {
-         console.log(err)
-         setPosts([])
-      }
-   }
-      , [resp])
+
+   // useEffect(() => {
+   //    if (!resp) return;
+   //    try {
+   //       const parsedResponse = JSON.parse(resp)
+   //       if (!Array.isArray(parsedResponse)) {
+   //          throw new Error('Response is not an array')
+   //       }
+   //       setPosts(parsedResponse)
+
+   //    } catch (err) {
+   //       console.log(err)
+   //       setPosts([])
+   //    }
+   // }
+   //    , [resp])
 
    function toggleShow() {
+      console.log('toggleShow')
+      console.log(show)
       setShow(!show)
    }
 
    return (
-      <panel anchor={15}>
+      <control anchor={15}>
 
          <vbox seperation={0} anchor={15}>
             <AppTitleBar
@@ -87,31 +89,33 @@ export default function TestComp() {
                ref={titleBarRef}
                title={searchPath}
             >
-               <button
-                  style={{
-                     rect_min_size: new godot.Vector2(40, 0),
-                     mouse_default_cursor_shape: 2,
-                  }}
-                  text={'_'}
-                  on_pressed={minimizeWindow}
-               />
-               <button
-                  style={{
-                     rect_min_size: new godot.Vector2(40, 0),
-                     mouse_default_cursor_shape: 2,
-                  }}
-                  text={'X'}
-                  on_pressed={closeWindow}
-               />
-               <button
-                  style={{
-                     rect_min_size: new godot.Vector2(40, 0),
-                     mouse_default_cursor_shape: 2,
-                  }}
-                  text={'SHOW'}
-                  on_pressed={toggleShow}
-               />
-               {show && <label text={'test'} />}
+               <hbox>
+                  <button
+                     style={{
+                        rect_min_size: new godot.Vector2(40, 0),
+                        mouse_default_cursor_shape: 2,
+                     }}
+                     text={'_'}
+                     on_pressed={minimizeWindow}
+                  />
+                  <button
+                     style={{
+                        rect_min_size: new godot.Vector2(40, 0),
+                        mouse_default_cursor_shape: 2,
+                     }}
+                     text={'X'}
+                     on_pressed={closeWindow}
+                  />
+                  <button
+                     style={{
+                        rect_min_size: new godot.Vector2(40, 0),
+                        mouse_default_cursor_shape: 2,
+                     }}
+                     text={'SHOW'}
+                     on_pressed={toggleShow}
+                  />
+                  {show && <label text={'test'} />}
+               </hbox>
             </AppTitleBar >
             <panelcontainer size={{ height: 3 }}>
                <panel >
@@ -156,7 +160,7 @@ export default function TestComp() {
                </panel>
             </panelcontainer>
          </vbox>
-      </panel>
+      </control>
    )
 }
 
