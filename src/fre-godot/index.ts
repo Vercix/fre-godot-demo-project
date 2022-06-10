@@ -1,5 +1,6 @@
 export {
    render,
+   update,
    useState,
    useEffect,
    useMemo,

@@ -1,22 +1,35 @@
+import { IFiber } from 'fre-godot'
+import { render, update } from '../fre-godot'
 
+
+import ToDoList from '../components/ToDoList'
+import Calculator from '../components/Calculator'
 
 function Test() {
   return <label text="Test Func Comp" ></label>
 }
 
-interface FreControl {
-  _render : () => void
+interface FreNode {
+  _render: () => IFiber
 }
 
-export default class AppTitleBar  extends godot.PanelContainer implements FreControl {
+export default class AppTitleBar extends godot.PanelContainer implements FreNode {
   //app = jsx(TestComp, {})
+  fiber: IFiber = null;
   following = false;
   dragging_start_position = new godot.Vector2();
   children = [];
-  title = "AppTitleBar"
+  title = 'TEST TITLE'
+
 
   constructor() {
     super();
+    this.testPress = this.testPress.bind(this);
+
+  }
+
+  _enter_tree() {
+    render(this._render(), this)
   }
 
   // Called when the node enters the scene tree for the first time.
@@ -41,12 +54,20 @@ export default class AppTitleBar  extends godot.PanelContainer implements FreCon
     }
   }
 
+  testPress() {
+    console.log('pressed')
+    console.log(this.fiber)
+    this.title = 'pressed'
+    console.log(this.fiber.node == this)
+    update(this.fiber)
+  }
+
   _render() {
     return (
       <hbox >
-        <hbox size={{ width: 3 }}>
-          <Test />
+        <hbox>
           <label text={this.title} />
+          <button on_pressed={this.testPress} text={this.title} />
         </hbox>
         {this.children}
       </hbox>
