@@ -1,6 +1,3 @@
-
-
-
 import { useState, useRef, useEffect } from "../fre-godot";
 
 import TestClass from "../classes/AppTitleBar";

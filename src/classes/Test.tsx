@@ -1,7 +1,6 @@
 import { IFiber } from 'fre-godot'
 import { render } from '../fre-godot'
 
-import AppTitleBar from './AppTitleBar'
 
 interface FreNode {
     _render: () => IFiber
@@ -9,14 +8,16 @@ interface FreNode {
 
 export default class TestClass extends godot.PanelContainer implements FreNode {
 
-    children: [] = []
+    //fre
+    fiber: IFiber = null;
+    children = [];
 
     constructor() {
         super();
     }
 
     _enter_tree() {
-        render(this._render(), this)
+        //render(this._render(), this)
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -29,7 +30,7 @@ export default class TestClass extends godot.PanelContainer implements FreNode {
         return (
             <vbox>
                 <label text="Test Class Comp" ></label>
-                <AppTitleBar/>
+                <label text="Test Class Comp" ></label>
                 {this.children}
             </vbox>
         )

@@ -15,19 +15,20 @@ interface FreNode {
 
 export default class AppTitleBar extends godot.PanelContainer implements FreNode {
   //app = jsx(TestComp, {})
-  fiber: IFiber = null;
   following = false;
   dragging_start_position = new godot.Vector2();
-  children = [];
   title = 'TEST TITLE'
 
+  //fre
+  fiber: IFiber = null;
+  children = [];
 
   constructor() {
     super();
     this.testPress = this.testPress.bind(this);
     console.log('_________________NEW CLASS________________________')
   }
-  
+
   _enter_tree() {
     //render(this._render(), this)
   }
@@ -60,7 +61,8 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
     this.title = 'PRESSED'
     console.log(this.fiber.node == this)
     console.log(this.children)
-    console.log(this.children?.[0]?.type)
+    console.log(this.children?.type)
+    console.log('______________')
     update(this.fiber)
   }
 
@@ -70,6 +72,7 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
         <hbox size={{ width: 3 }}>
           <label text={this.title} />
           <button on_pressed={this.testPress} text={this.title} />
+          <Calculator />
         </hbox>
         {this.children}
       </hbox>
