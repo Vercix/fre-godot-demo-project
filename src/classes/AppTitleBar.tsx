@@ -27,6 +27,7 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
     super();
     this.testPress = this.testPress.bind(this);
     console.log('_________________NEW CLASS________________________')
+    //this.is_connected()
   }
 
   _enter_tree() {
@@ -62,19 +63,21 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
     console.log(this.fiber.node == this)
     console.log(this.children)
     console.log(this.children?.type)
+    console.log(this.children?.props?.name)
     console.log('______________')
+    this.fiber.props.title = 'PRESSED___test__'
     update(this.fiber)
   }
 
   _render() {
     return (
-      <hbox >
-        <hbox size={{ width: 3 }}>
-          <label text={this.title} />
+      <hbox name={'A'} >
+        <hbox size={{ width: 3 }} name={'B'}>
+          <label text={this.fiber.props.title} />
           <button on_pressed={this.testPress} text={this.title} />
           <Calculator />
         </hbox>
-        {this.children}
+        {this.fiber.props.children}
       </hbox>
     )
   }

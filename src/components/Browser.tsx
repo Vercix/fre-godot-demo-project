@@ -6,6 +6,7 @@ import LineEdit from "./LineEdit";
 
 import useFetch from '../hooks/useFetch'
 import AppTitleBar from '../classes/AppTitleBar'
+import Calculator from './Calculator'
 
 export default function TestComp() {
    const rootRef = useRef(null)
@@ -81,7 +82,7 @@ export default function TestComp() {
    return (
       <control anchor={15}>
 
-         <vbox seperation={0} anchor={15}>
+         <vbox seperation={0} anchor={15} name={'vtop'}>
             <AppTitleBar
                style={{
                   rect_min_size: new godot.Vector2(0, 50)
@@ -89,7 +90,7 @@ export default function TestComp() {
                ref={titleBarRef}
                title={searchPath}
             >
-               <hbox>
+               <hbox name={'Htop'}>
                   <button
                      style={{
                         rect_min_size: new godot.Vector2(40, 0),
@@ -132,6 +133,7 @@ export default function TestComp() {
                         />
                         <button size={{ width: 0 }} text={`SEARCH`} />
                      </hbox>
+                     {show && <control><Calculator /></control>}
                      <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
                         <vbox anchor={15} size={{ height: 3, width: 3 }}>
 
