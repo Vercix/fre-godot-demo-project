@@ -6,25 +6,27 @@ interface FreNode {
     _render: () => IFiber
 }
 
-export default class TestClass extends godot.PanelContainer implements FreNode {
+export default class TestClass extends godot.Control implements FreNode {
 
     //fre
     fiber: IFiber = null;
     children = [];
+    renderOnEnter = false;
 
     constructor() {
         super();
     }
 
     _enter_tree() {
-        //render(this._render(), this)
+        if(this.renderOnEnter){
+            render(this._render(), this)
+        }
     }
 
     // Called when the node enters the scene tree for the first time.
     _ready() {
 
     }
-
 
     _render() {
         return (
@@ -38,4 +40,4 @@ export default class TestClass extends godot.PanelContainer implements FreNode {
 
 }
 
-
+godot.register_property(TestClass, 'renderOnEnter', false);
