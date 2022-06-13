@@ -5,21 +5,6 @@ import { render, update, useState } from '../fre-godot'
 import ToDoList from '../components/ToDoList'
 import Calculator from '../components/Calculator'
 
-function Test() {
-  const [text, setText] = useState("Test Func Comp")
-
-  function test(){
-    console.log("~~~~~PRESSED~~~~~")
-    setText('HELLO?')
-  }
-
-  return (
-    <vbox>
-      <label text={text} />
-      <button on_pressed={test} text="Test Func Comp" />
-    </vbox>
-  )
-}
 
 interface FreNode {
   _render: () => IFiber
@@ -71,7 +56,7 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
   testPress() {
     console.log('pressed')
     console.log(this.fiber)
-    this.title = 'PRESSED'
+    //throw new Error
     console.log(this.fiber.node == this)
     console.log(this.children)
     console.log(this.children?.type)
@@ -81,19 +66,7 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
     update(this.fiber)
   }
 
-  _render() {
-    return (
-      <hbox name={'A'} >
-        <hbox size={{ width: 3 }} name={'B'}>
-          <label text={this.fiber.props.title} />
-          <button on_pressed={this.testPress} text={this.title} />
-          {/* <Calculator /> */}
-        </hbox>
-        <Test THIS={"THIS"}/>
-        {this.fiber.props.children}
-      </hbox>
-    )
-  }
+
 
 }
 

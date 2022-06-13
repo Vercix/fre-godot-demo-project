@@ -44,13 +44,13 @@ const injectFre = {
 					return './'
 				}
 				return '../'.repeat(x)
-
-
 			}
 
+			//Hard coded, will case issue if project structure modified.
+			//Need some way to check relative path from file to where fregodot bundle is compiled to0
 			const relPath = getRelPath(build.initialOptions.outfile.split('/').length - 3)  
 			
-			const result = `import { jsx as _jsx } from "${relPath}fre-godot/jsx-runtime" \n` + fileString
+			const result = `import { jsx as _jsx, Fragment } from "${relPath}fre-godot/jsx-runtime" \n` + fileString
 			return { 
 				contents: result,
 				loader : 'tsx'
@@ -144,6 +144,7 @@ async function build_entry(input, outfile) {
 			bundle: entry_is_bundle(input),
 			jsx: 'transform',
 			jsxFactory: '_jsx',
+			jsxFragment: 'Fragment',
 			//inject: ['./src/fre-godot/fre-godot-shim.js'],
 			loader: { '.js': 'jsx' },
 			plugins: [injectFre],

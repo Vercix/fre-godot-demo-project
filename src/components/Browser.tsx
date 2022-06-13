@@ -8,6 +8,8 @@ import useFetch from '../hooks/useFetch'
 import AppTitleBar from '../classes/AppTitleBar'
 import Calculator from './Calculator'
 
+import ToDoList from './ToDoList';
+
 export default function TestComp() {
    const rootRef = useRef(null)
    const titleBarRef = useRef(null)
@@ -24,11 +26,6 @@ export default function TestComp() {
       console.log('---- received posts----')
       setPosts(newPosts)
       setHasReceivedPosts(true)
-   }
-
-   function onGuiInput(e) {
-      console.log(e)
-      console.log(e instanceof godot.InputEventMouseMotion)
    }
 
    function onTextChanged(newText) {
@@ -83,44 +80,53 @@ export default function TestComp() {
       <control anchor={15}>
 
          <vbox seperation={0} anchor={15} name={'vtop'}>
-            <AppTitleBar
+            <panelcontainer
                style={{
                   rect_min_size: new godot.Vector2(0, 50)
                }}
                ref={titleBarRef}
                title={searchPath}
             >
-               <hbox name={'Htop'}>
-                  <button
-                     style={{
-                        rect_min_size: new godot.Vector2(40, 0),
-                        mouse_default_cursor_shape: 2,
-                     }}
-                     text={'_'}
-                     on_pressed={minimizeWindow}
-                  />
-                  <button
-                     style={{
-                        rect_min_size: new godot.Vector2(40, 0),
-                        mouse_default_cursor_shape: 2,
-                     }}
-                     text={'X'}
-                     on_pressed={closeWindow}
-                  />
-                  <button
-                     style={{
-                        rect_min_size: new godot.Vector2(40, 0),
-                        mouse_default_cursor_shape: 2,
-                     }}
-                     text={'SHOW'}
-                     on_pressed={toggleShow}
-                  />
-                  {show && <label text={'test'} />}
+               <hbox name={'A'} >
+
+                  <hbox size={{ width: 3 }} name={'B'}>
+                     <label text={'sd'} />
+                     <button on_pressed={() => { }} text={'title'} />
+                  </hbox>
+                  <hbox name={'Htop'}>
+                     <button
+                        style={{
+                           rect_min_size: new godot.Vector2(40, 0),
+                           mouse_default_cursor_shape: 2,
+                        }}
+                        text={'_'}
+                        on_pressed={minimizeWindow}
+                     />
+                     <button
+                        style={{
+                           rect_min_size: new godot.Vector2(40, 0),
+                           mouse_default_cursor_shape: 2,
+                        }}
+                        text={'X'}
+                        on_pressed={closeWindow}
+                     />
+
+                  </hbox>
+                     <button
+                        style={{
+                           rect_min_size: new godot.Vector2(40, 0),
+                           mouse_default_cursor_shape: 2,
+                        }}
+                        text={'SHOW'}
+                        on_pressed={toggleShow}
+                     />
                </hbox>
-            </AppTitleBar >
+
+            </panelcontainer >
             <panelcontainer size={{ height: 3 }}>
                <panel >
                   <vbox anchor={15} size={{ width: 3 }}>
+                     <ToDoList />
                      <hbox size={{ width: 3 }}>
                         <LineEdit
                            text={searchPath}
@@ -133,7 +139,7 @@ export default function TestComp() {
                         />
                         <button size={{ width: 0 }} text={`SEARCH`} />
                      </hbox>
-                     {show && <control><Calculator /></control>}
+                     {/* {show && <control><Calculator /></control>} */}
                      <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
                         <vbox anchor={15} size={{ height: 3, width: 3 }}>
 

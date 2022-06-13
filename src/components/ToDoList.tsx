@@ -73,23 +73,20 @@ export default function ToDoList() {
             anchor={15}
          >
 
-            <LineEdit
+            <lineedit
                placeholder_text={'Type....'}
                text={text}
-               on_text_changed={(e) => { handleTextChange(e) }}
+               on_text_changed={handleTextChange}
             />
             <label text={`${text}`} />
 
-            <>
-               <hseperator />
-            </>
+            <hseperator />
 
             {labels.map((el, i) => (
                <control
                   style={{
                      rect_min_size: new godot.Vector2(0, 25),
                      mouse_default_cursor_shape: 2,
-                     rect_rotation: 20,
                   }}
                   key={el}
                >
