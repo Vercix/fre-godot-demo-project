@@ -1,8 +1,8 @@
-
+import { useState } from "../fre-godot";
 
 export default function Counter() {
-    const [num, setNum] = Spark.useState(0)
-    const [num2, setNum2] = Spark.useState(0)
+    const [num, setNum] = useState(0)
+    const [num2, setNum2] = useState(0)
 
     return (
         <vbox>
@@ -15,4 +15,3 @@ export default function Counter() {
         </vbox>
     )
 }
-
