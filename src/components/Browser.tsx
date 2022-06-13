@@ -6,13 +6,8 @@ import LineEdit from "./LineEdit";
 
 import useFetch from '../hooks/useFetch'
 import AppTitleBar from '../classes/AppTitleBar'
-import Calculator from './Calculator'
-
-import ToDoList from './ToDoList';
-import LabelButton from "./LabelButton";
 
 export default function TestComp() {
-   const rootRef = useRef(null)
    const titleBarRef = useRef(null)
 
    const [posts, setPosts] = useState([])
@@ -20,8 +15,6 @@ export default function TestComp() {
    const [hasReceivedPosts, setHasReceivedPosts] = useState(false)
    const [searchPath, setSearchPath] = useState('/posts')
    const resp = useFetch(searchPath)
-   const [following, setFollowing] = useState(false)
-   const [draggingStartPosition, setDraggingStartPosition] = useState(new godot.Vector2())
 
    function receivedPosts(newPosts) {
       console.log('---- received posts----')
@@ -53,7 +46,6 @@ export default function TestComp() {
    function minimizeWindow() {
       godot.OS.set_window_minimized(true)
    }
-
 
    useEffect(() => {
       if (!resp) return;
@@ -130,20 +122,15 @@ export default function TestComp() {
                      <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
                         <vbox anchor={15} size={{ height: 3, width: 3 }}>
 
-
                            {posts.map((el, i) => (
-                              <panelcontainer >
+                              <panelcontainer key={el.id}>
                                  <panel
-                                    style={{
-                                       rect_min_size: new godot.Vector2(0, 50),
-                                       mouse_default_cursor_shape: 2,
-                                    }}
                                  >
-                                    <vbox anchor={15}>
-                                       <label size={{ height: 3 }} key={el.id} text={el.title || el.name} />
-                                       <button size={{ width: 0 }} text={`Read`} />
-                                    </vbox>
                                  </panel>
+                                 <vbox >
+                                    <label size={{ height: 3 }} text={el.title || el.name} />
+                                    <button size={{ width: 0 }} text={`Read`} />
+                                 </vbox>
                               </panelcontainer>
 
                            ))}
@@ -157,4 +144,3 @@ export default function TestComp() {
       </control>
    )
 }
-
