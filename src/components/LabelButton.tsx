@@ -2,7 +2,6 @@
 import { useState, useEffect } from "../fre-godot";
 import CLOSEICON from 'res://cross.png';
 
-
 export default function LabelButton({ text, on_remove }) {
    const [labelText, setLabelText] = useState(text);
 
@@ -16,4 +15,3 @@ export default function LabelButton({ text, on_remove }) {
       </hbox>
    )
 }
-
