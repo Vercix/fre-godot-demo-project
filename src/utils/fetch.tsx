@@ -1,3 +1,4 @@
+
 export default function fetch({ host = 'jsonplaceholder.typicode.com', path = "/posts", port = 80 } = args) {
    return new Promise(async (res, rej) => {
       const http = new godot.HTTPClient()
@@ -5,12 +6,6 @@ export default function fetch({ host = 'jsonplaceholder.typicode.com', path = "/
       let rb = new godot.PoolByteArray() // Array that will hold the data.
 
       async function doGetConnection() {
-
-         // console.log(godot.Engine.get_main_loop())
-         // console.log(godot.SceneTree.idle_frame)
-         // console.log(godot.SceneTreeTimer.timeout)
-         // console.log(".....................")
-         // console.log(godot.yield)
 
          return new Promise(async (res, rej) => {
             while (
@@ -28,6 +23,7 @@ export default function fetch({ host = 'jsonplaceholder.typicode.com', path = "/
       }
 
       async function doRequest() {
+
          return new Promise(async (res, rej) => {
             while (
                http.get_status() == godot.HTTPClient.STATUS_REQUESTING
@@ -41,6 +37,7 @@ export default function fetch({ host = 'jsonplaceholder.typicode.com', path = "/
       }
 
       async function doGetChunck() {
+
          return new Promise(async (res, rej) => {
             while (
                http.get_status() == godot.HTTPClient.STATUS_BODY
