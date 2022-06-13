@@ -20,9 +20,7 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/borderless=false
-window/per_pixel_transparency/allowed=false
-window/per_pixel_transparency/enabled=false
+window/size/borderless=true
 
 [physics]
 
