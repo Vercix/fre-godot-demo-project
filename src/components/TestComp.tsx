@@ -45,7 +45,6 @@ export default function App() {
          </vbox>
          <hbox>
             <AppTitleBar>
-
                <Counter />
             </AppTitleBar>
          </hbox>
