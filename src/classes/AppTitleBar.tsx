@@ -29,7 +29,6 @@ function Test() {
   )
 }
 
-
 export default class AppTitleBar extends godot.PanelContainer implements FreNode {
   //app = jsx(TestComp, {})
   following = false;
@@ -43,7 +42,6 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
   constructor() {
     super();
     this.testPress = this.testPress.bind(this);
-    console.log('_________________NEW CLASS________________________')
     //this.is_connected()
   }
 
@@ -75,13 +73,6 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
 
   testPress() {
     console.log('pressed')
-    console.log(this.fiber)
-    //throw new Error
-    console.log(this.fiber.node == this)
-    console.log(this.children)
-    console.log(this.children?.type)
-    console.log(this.children?.props?.name)
-    console.log('______________')
     this.fiber.props.title = 'PRESSED___test__'
     update(this.fiber)
   }
