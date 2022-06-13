@@ -4,29 +4,35 @@ import { useState } from "../fre-godot";
 import LineEdit from './LineEdit'
 
 export default function Calculator() {
-   const [text, setText] = useState('xxx');
+   const [expression, setExpression] = useState('');
+   const [result, setResult] = useState('');
 
    function handleTextChange(text) {
-      keyPressed('~~~~handleTextChange')
-      keyPressed(text)
-      setText(text)
+      setExpression(text)
    }
 
-   function keyPressed(x){
-      setText(String(x))
+   function keyPressed(x) {
+      setExpression(expression + String(x))
    }
 
+   function evaluate() {
+      const evaluateExpression = new godot.Expression()
+      evaluateExpression.parse(expression)
+      const result = evaluateExpression.execute();
+      console.log(result)
+      setResult(String(result))
+   }
 
    return (
-      <panel anchor={15} rect_min_size={new godot.Vector2(200, 200)}>
+      <panelcontainer theme={{}}>
+         <panel anchor={15} />
          <vbox anchor={15}>
-
             <LineEdit
                placeholder_text={'Type....'}
-               text={text}
+               text={expression}
                on_text_changed={(e) => { handleTextChange(e) }}
             />
-            <label text={`${text}`} />
+            <label text={`${result}`} />
             <hseperator />
             <hbox>
                <button rect_min_size={new godot.Vector2(30, 30)} text={'1'} on_pressed={() => { keyPressed(1) }} />
@@ -43,9 +49,21 @@ export default function Calculator() {
                <button rect_min_size={new godot.Vector2(30, 30)} text={'8'} on_pressed={() => { keyPressed(8) }} />
                <button rect_min_size={new godot.Vector2(30, 30)} text={'9'} on_pressed={() => { keyPressed(9) }} />
             </hbox>
+            <hbox>
+               <control rect_min_size={new godot.Vector2(30, 30)} />
+               <button rect_min_size={new godot.Vector2(30, 30)} text={'0'} on_pressed={() => { keyPressed(0) }} />
+               <control rect_min_size={new godot.Vector2(30, 30)} />
+            </hbox>
+            <hbox>
+               <button rect_min_size={new godot.Vector2(30, 30)} text={'+'} on_pressed={() => { keyPressed('+') }} />
+               <button rect_min_size={new godot.Vector2(30, 30)} text={'-'} on_pressed={() => { keyPressed('-') }} />
+               <button rect_min_size={new godot.Vector2(30, 30)} text={'*'} on_pressed={() => { keyPressed('*') }} />
+               <button rect_min_size={new godot.Vector2(30, 30)} text={'='} on_pressed={evaluate} />
+            </hbox>
+            <hbox>
+            </hbox>
 
          </vbox>
-      </panel>
+      </panelcontainer>
    )
 }
-
