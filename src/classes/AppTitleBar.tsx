@@ -6,9 +6,29 @@ import ToDoList from '../components/ToDoList'
 import Calculator from '../components/Calculator'
 
 
+
+
 interface FreNode {
   _render: () => IFiber
 }
+
+
+function Test() {
+  const [text, setText] = useState("Test Func Comp")
+
+  function test(){
+    console.log("~~~~~PRESSED~~~~~")
+    setText('HELLO?')
+  }
+
+  return (
+    <vbox>
+      <label text={text} />
+      <button on_pressed={test} text="Test Func Comp" />
+    </vbox>
+  )
+}
+
 
 export default class AppTitleBar extends godot.PanelContainer implements FreNode {
   //app = jsx(TestComp, {})
@@ -66,7 +86,16 @@ export default class AppTitleBar extends godot.PanelContainer implements FreNode
     update(this.fiber)
   }
 
-
+  _render() {
+    return (
+      <hbox name={'A'} >
+        <hbox size={{ width: 3 }} name={'B'}>
+          <label text={this.fiber.props.title} />
+        </hbox>
+        {this.fiber.props.children}
+      </hbox>
+    )
+  }
 
 }
 

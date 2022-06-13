@@ -9,6 +9,7 @@ import AppTitleBar from '../classes/AppTitleBar'
 import Calculator from './Calculator'
 
 import ToDoList from './ToDoList';
+import LabelButton from "./LabelButton";
 
 export default function TestComp() {
    const rootRef = useRef(null)
@@ -18,7 +19,7 @@ export default function TestComp() {
    const [show, setShow] = useState(true)
    const [hasReceivedPosts, setHasReceivedPosts] = useState(false)
    const [searchPath, setSearchPath] = useState('/posts')
-   //const resp = useFetch(searchPath)
+   const resp = useFetch(searchPath)
    const [following, setFollowing] = useState(false)
    const [draggingStartPosition, setDraggingStartPosition] = useState(new godot.Vector2())
 
@@ -54,21 +55,21 @@ export default function TestComp() {
    }
 
 
-   // useEffect(() => {
-   //    if (!resp) return;
-   //    try {
-   //       const parsedResponse = JSON.parse(resp)
-   //       if (!Array.isArray(parsedResponse)) {
-   //          throw new Error('Response is not an array')
-   //       }
-   //       setPosts(parsedResponse)
+   useEffect(() => {
+      if (!resp) return;
+      try {
+         const parsedResponse = JSON.parse(resp)
+         if (!Array.isArray(parsedResponse)) {
+            throw new Error('Response is not an array')
+         }
+         setPosts(parsedResponse)
 
-   //    } catch (err) {
-   //       console.log(err)
-   //       setPosts([])
-   //    }
-   // }
-   //    , [resp])
+      } catch (err) {
+         console.log(err)
+         setPosts([])
+      }
+   }
+      , [resp])
 
    function toggleShow() {
       console.log('toggleShow')
@@ -80,7 +81,7 @@ export default function TestComp() {
       <control anchor={15}>
 
          <vbox seperation={0} anchor={15} name={'vtop'}>
-            <panelcontainer
+            <AppTitleBar
                style={{
                   rect_min_size: new godot.Vector2(0, 50)
                }}
@@ -88,11 +89,6 @@ export default function TestComp() {
                title={searchPath}
             >
                <hbox name={'A'} >
-
-                  <hbox size={{ width: 3 }} name={'B'}>
-                     <label text={'sd'} />
-                     <button on_pressed={() => { }} text={'title'} />
-                  </hbox>
                   <hbox name={'Htop'}>
                      <button
                         style={{
@@ -112,21 +108,13 @@ export default function TestComp() {
                      />
 
                   </hbox>
-                     <button
-                        style={{
-                           rect_min_size: new godot.Vector2(40, 0),
-                           mouse_default_cursor_shape: 2,
-                        }}
-                        text={'SHOW'}
-                        on_pressed={toggleShow}
-                     />
                </hbox>
 
-            </panelcontainer >
+            </AppTitleBar >
             <panelcontainer size={{ height: 3 }}>
                <panel >
                   <vbox anchor={15} size={{ width: 3 }}>
-                     <ToDoList />
+
                      <hbox size={{ width: 3 }}>
                         <LineEdit
                            text={searchPath}
@@ -139,7 +127,6 @@ export default function TestComp() {
                         />
                         <button size={{ width: 0 }} text={`SEARCH`} />
                      </hbox>
-                     {/* {show && <control><Calculator /></control>} */}
                      <scrollcontainer size={{ height: 3, width: 3 }} anchor={15} >
                         <vbox anchor={15} size={{ height: 3, width: 3 }}>
 
@@ -151,7 +138,6 @@ export default function TestComp() {
                                        rect_min_size: new godot.Vector2(0, 50),
                                        mouse_default_cursor_shape: 2,
                                     }}
-                                 //on_gui_input={onGuiInput}
                                  >
                                     <vbox anchor={15}>
                                        <label size={{ height: 3 }} key={el.id} text={el.title || el.name} />

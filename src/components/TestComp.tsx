@@ -1,9 +1,13 @@
 import { useState } from "../fre-godot";
 
+
+import TestClass from '../classes/Test'
+import AppTitleBar from '../classes/AppTitleBar'
+
 const Counter = () => {
    const [count, setCount] = useState(0);
 
-   function counter(){
+   function counter() {
       console.log('++++++')
       setCount(count + 1)
    }
@@ -36,11 +40,14 @@ export default function App() {
       <vbox>
          <vbox>
             <Counter />
-            <button text={'Toggle'} on_pressed={toggleShow}/>
+            <button text={'Toggle'} on_pressed={toggleShow} />
             {show && <hbox><label text={'HELL OWORLD'} /></hbox>}
          </vbox>
          <hbox>
-            <DoubleCounter />
+            <AppTitleBar>
+
+               <Counter />
+            </AppTitleBar>
          </hbox>
       </vbox>
    )
