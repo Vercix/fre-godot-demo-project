@@ -2,7 +2,7 @@ import { render } from "./fre-godot";
 
 import App from "./classes/BaseApp";
 import Calculator from './components/Calculator'
-import ToDoList from './components/ToDoList'
+
 
 const rootTheme = {
 	VBoxContainer:
