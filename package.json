@@ -26,7 +26,7 @@
 		"buffer": "^6.0.3",
 		"child_process": "^1.0.2",
 		"events": "^3.3.0",
-		"fre-godot": "0.0.2",
+		"fre-godot": "0.0.3",
 		"fs": "0.0.1-security",
 		"jsdom": "^19.0.0",
 		"net": "^1.0.2",
