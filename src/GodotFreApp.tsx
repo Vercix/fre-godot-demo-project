@@ -46,7 +46,6 @@ export default class GodotFreApp extends godot.Control {
 				theme={rootTheme}
 			>
 				<Calculator />
-				<ToDoList />
 			</App>,
 			this
 		);
