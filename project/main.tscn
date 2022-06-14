@@ -2,7 +2,9 @@
 
 [ext_resource path="res://dist/GodotFreApp.jsx" type="Script" id=1]
 
-[node name="Control" type="Control"]
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="App" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
