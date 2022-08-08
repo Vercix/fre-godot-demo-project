@@ -1,10 +1,21 @@
+[godot]: https://github.com/godotengine/godot
+
+[fre]: https://github.com/frejs/fre
+[fre-godot]: https://github.com/vercix/fre-godot
+
+[ECMAScript]: https://github.com/Geequlim/ECMAScript
+[javascript bindings]: https://github.com/Geequlim/ECMAScript
+
+[QuickJS]: https://bellard.org/quickjs/
+
+
 # Godot-Fre Demo Project
 
 
 ## What
 <br>
 
-This is a demo project for <a href="https://github.com/Vercix/fre-godot">fre-godot</a>. A fre fork for the Godot engine with <a href="https://github.com/GodotExplorer/ECMAScript">javascript bindings</a>.
+This is a demo project for [fre-godot]. A [fre] fork for the [Godot] engine with [javascript bindings].
 
 <br>
 
@@ -25,25 +36,31 @@ npm run watch
 ```
 
 
-Actual godot project is in project folder.
+Actual [godot] project is in project folder.
 
 <br>
 
 ## You need to bundle npm packages:
 
-**Important if you want to use the demo project and start changing the folder structure.  
-See more details at the <a href="https://github.com/GodotExplorer/ECMAScript#readme">javascript bindings repository</a>.**
+Because the javascript vm used, in the [Godot] engine with [javascript bindings], is [QuickJS].
+
+<br>
+
+>**Important: if you want to use the demo project and start changing the folder structure.  
+See more details at the [javascript bindings] repository.**
 
 <br>
 
 ## Important Notes:
 
-- Project is build using esbuild.
+1. Project is build using esbuild.
 
-- Have a look at `/src/fre-godot`
+2. Have a look at `/src/fre-godot`
 
-- Its designmated for bundling in `scripts.json`.
+3. Its designmated for bundling in `scripts.json`.
 
-- Which is used in `/build.js`
+4. Which is used in `/build.js`
+
+<br>
 
 - I did my own hack for injecting jsx imports from `/src/fre-godot`. See `injectFre` plugin in `/build.js`
