@@ -13,8 +13,12 @@ export default class TestClass extends godot.Control implements FreNode {
     children = [];
     renderOnEnter = false;
 
-    constructor() {
+    constructor(p_renderOnEnter = false) {
         super();
+        this.renderOnEnter = p_renderOnEnter
+
+
+        
     }
 
     _enter_tree() {
