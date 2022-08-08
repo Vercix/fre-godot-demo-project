@@ -4,7 +4,7 @@
 ## What
 <br>
 
-This is a demo project for <a href="https://github.com/Vercix/fre">fre-godot</a>. A fre fork for the Godot engine with <a href="https://github.com/GodotExplorer/ECMAScript">javascript bindings</a>.
+This is a demo project for <a href="https://github.com/Vercix/fre-godot">fre-godot</a>. A fre fork for the Godot engine with <a href="https://github.com/GodotExplorer/ECMAScript">javascript bindings</a>.
 
 <br>
 
