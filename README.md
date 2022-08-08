@@ -36,14 +36,14 @@ See more details at the <a href="https://github.com/GodotExplorer/ECMAScript#rea
 
 <br>
 
+## Important Notes:
 
+- Project is build using esbuild.
 
-Project is build using esbuild.
+- Have a look at `/src/fre-godot`
 
-Have a look at `/src/fre-godot`
+- Its designmated for bundling in `scripts.json`.
 
-Its designmated for bundling in `scripts.json`.
+- Which is used in `/build.js`
 
-Which is used in `/build.js`
-
-I did my own hack for injecting jsx imports from `/src/fre-godot`. See `injectFre` plugin in `/build.js`
+- I did my own hack for injecting jsx imports from `/src/fre-godot`. See `injectFre` plugin in `/build.js`
